@@ -24,7 +24,38 @@ ascp -v -k 1 -QT -l 300M -i /home/bio/.aspera/connect/etc/asperaweb_id_dsa.opens
 
 ### 2.从nr.gz中提取特定物种信息构建相应的比对数据库
 
-目前
+目的是将非模式物种的蛋白和人的蛋白序列进行blast，所以要构建人的reference。
+
+首先提取人的序列，**两步法**构建：第一步提取人的蛋白的header，
+
+```
+zgrep "^>.*Homo sapiens" nr.gz > human_headers.txt
+```
+
+第二步，根据headers，使用`seqkit`根据全名提取，注意的是seqkit识别行名的时候不能有`>`，所以要先去掉headers文件里面的`>`
+
+```
+sed 's/^>//' human_headers.txt > human_headers2.txt
+seqkit grep -n -f human_headers2.txt nr.fa -o human_proteins.fa
+```
+
+**一步法**构建：
+
+```
+seqkit grep -nrp "\[Homo sapiens\]" nr.fa > human_proteins.fasta
+```
+
+```
+seqkit grep -nirp "Homo sapiens" nr.fa > human_proteins_2.fasta
+```
+
+
+出来的结果不完全一样,目前还没有发现到底是什么问题，只知道**Homo sapiens**是否加\[\]不一样。
+
+
+**nr（非冗余蛋白数据库）里面会出现header里面包含多个id，但是均代表一条序列的情况，这是因为不同的数据库条目（如 RefSeq、GenBank、PDB）可能会存储相同的蛋白质序列，但具有不同的来源或注释。**
+
+
 
 ### 3.基于基因列表批量从NCBI上下载对应蛋白质序列
 
