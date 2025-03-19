@@ -20,6 +20,11 @@
 ascp -v -k 1 -QT -l 300M -i /home/bio/.aspera/connect/etc/asperaweb_id_dsa.openssh anonftp@ftp.ncbi.nlm.nih.gov:/blast/db/FASTA/nr.gz .
 ```
 
+这是NCBI对应的[nr.gz](https://ftp.ncbi.nlm.nih.gov/blast/db/FASTA/)所在的ftp链接位置。
+
 ### 2.从nr.gz中提取特定物种信息构建相应的比对数据库
 
 目前
+
+### 3.基于基因列表批量从NCBI上下载对应蛋白质序列
+
