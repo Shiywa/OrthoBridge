@@ -15,6 +15,8 @@
 - [Batch download protein sequences from NCBI based on gene lists](#step5)
 - [Obtain results by blastp comparison](#step6)
 
+————————————————
+
 ##### step1
 ### Download nr.gz database from NCBI
 
@@ -31,6 +33,8 @@ ascp -v -k 1 -QT -l 300M -i /home/bio/.aspera/connect/etc/asperaweb_id_dsa.opens
 ```
 
 这是NCBI对应的[nr.gz](https://ftp.ncbi.nlm.nih.gov/blast/db/FASTA/)所在的ftp链接位置。
+
+————————————————
 
 ##### step2
 ### 2. Extract specific species protein sequences from nr.gz
@@ -63,6 +67,8 @@ seqkit grep -nirp "Homo sapiens" nr.fa > human_proteins_2.fasta
 出来的结果不完全一样,目前还没有发现到底是什么问题，只知道**Homo sapiens**是否加\[\]的结果不一样。但是所差条目很小，决定用第二种**一步法**构建的结果
 
 **nr（非冗余蛋白数据库）里面会出现header里面包含多个id，但是均代表一条序列的情况，这是因为不同的数据库条目（如 RefSeq、GenBank、PDB）可能会存储相同的蛋白质序列，但具有不同的来源或注释。**
+
+————————————————
 
 ##### step3
 ### 3. Remove non-human information from redundant headers
@@ -111,6 +117,8 @@ echo "Processed file saved as ${input_file%.fasta}_cleaned.fasta"
 
 运行`sh process_fasta.sh human_proteins_2.fasta`可以生成一个`human_proteins_2_cleaned.fasta`文件。
 
+————————————————
+
 ##### step4
 ### 4. Construct a reference database in one step
 
@@ -137,6 +145,8 @@ drwxrwxr-x 4 bio bio      4096 3月  19 09:48 ../
 -rw-rw-r-- 1 bio bio     16384 3月  19 17:34 human_proteins.ptf
 -rw-rw-r-- 1 bio bio   7523560 3月  19 17:34 human_proteins.pto
 ```
+
+————————————————
 
 ##### step5
 ### 5. Batch download protein sequences from NCBI based on gene lists
@@ -273,6 +283,9 @@ fi
 115308168 XP_029833004.2,XP_029833006.2,XP_029833007.2,XP_042145751.1,
 115308169 XP_040360673.2,
 ```
+
+————————————————
+
 ##### step6
 ### 6. Obtain results by blastp comparison
 
