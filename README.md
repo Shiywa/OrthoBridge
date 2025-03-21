@@ -8,7 +8,7 @@
 
 主要步骤包括
 
-- [Download nr.gz database from NCBI](#download-nr-gz-database-from-ncbi)
+- [Download nr.gz database from NCBI](#1.download-nr-gz-database-from-ncbi)
 - [Extract specific species protein sequences from nr.gz](#extract-specific-species-protein-sequences-from-nr-gz)
 - [Remove non-human information from redundant headers](#remove-non-human-information-from-redundant-headers)
 - [Construct a reference database in one step](#construct-a-reference-database-in-one-step)
