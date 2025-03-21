@@ -9,11 +9,11 @@
 主要步骤包括
 
 - [Download nr.gz database from NCBI](#step1)
-- [Extract specific species protein sequences from nr.gz](#extract-specific-species-protein-sequences-from-nr-gz)
-- [Remove non-human information from redundant headers](#remove-non-human-information-from-redundant-headers)
-- [Construct a reference database in one step](#construct-a-reference-database-in-one-step)
-- [Batch download protein sequences from NCBI based on gene lists](#batch-download-protein-sequences-from-ncbi-based-on-gene-lists)
-- [Obtain results by blastp comparison](#obtain-results-by-blastp-comparison)
+- [Extract specific species protein sequences from nr.gz](#step2)
+- [Remove non-human information from redundant headers](#step3)
+- [Construct a reference database in one step](#step4)
+- [Batch download protein sequences from NCBI based on gene lists](#step5)
+- [Obtain results by blastp comparison](#step6)
 
 ##### step1
 ### Download nr.gz database from NCBI
@@ -32,6 +32,7 @@ ascp -v -k 1 -QT -l 300M -i /home/bio/.aspera/connect/etc/asperaweb_id_dsa.opens
 
 这是NCBI对应的[nr.gz](https://ftp.ncbi.nlm.nih.gov/blast/db/FASTA/)所在的ftp链接位置。
 
+##### step2
 ### 2. Extract specific species protein sequences from nr.gz
 
 目的是将非模式物种的蛋白和人的蛋白序列进行blast，所以要构建人的reference。
@@ -63,6 +64,7 @@ seqkit grep -nirp "Homo sapiens" nr.fa > human_proteins_2.fasta
 
 **nr（非冗余蛋白数据库）里面会出现header里面包含多个id，但是均代表一条序列的情况，这是因为不同的数据库条目（如 RefSeq、GenBank、PDB）可能会存储相同的蛋白质序列，但具有不同的来源或注释。**
 
+##### step3
 ### 3. Remove non-human information from redundant headers
 
 由于我们的目的是构建人的reference，有的蛋白质序列包含了多个物种的信息，我们希望去掉这些信息，仅仅保留一条人的注释信息，因为后续比对也仅仅可以生成一个**acc id**的比对结果。
@@ -109,6 +111,7 @@ echo "Processed file saved as ${input_file%.fasta}_cleaned.fasta"
 
 运行`sh process_fasta.sh human_proteins_2.fasta`可以生成一个`human_proteins_2_cleaned.fasta`文件。
 
+##### step4
 ### 4. Construct a reference database in one step
 
 新建好一个`human_protein`文件夹后，运行以下命令，可以生成对应的参考数据库。
@@ -135,6 +138,7 @@ drwxrwxr-x 4 bio bio      4096 3月  19 09:48 ../
 -rw-rw-r-- 1 bio bio   7523560 3月  19 17:34 human_proteins.pto
 ```
 
+##### step5
 ### 5. Batch download protein sequences from NCBI based on gene lists
 
 我们在*Ixodes scapularis*物种的基因进行分析时，发现无法直接通过其基因ID在**uniprot**上下载对应的序列，只有从**NCBI**上方便查阅。
@@ -269,7 +273,7 @@ fi
 115308168 XP_029833004.2,XP_029833006.2,XP_029833007.2,XP_042145751.1,
 115308169 XP_040360673.2,
 ```
-
+##### step6
 ### 6. Obtain results by blastp comparison
 
 ```
