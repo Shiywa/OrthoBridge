@@ -8,7 +8,7 @@
 
 主要步骤包括
 
-- [从NCBI下载nr.gz数据库](# 1.从NCBI下载nr.gz数据库)
+- [从NCBI下载nr.gz数据库](#1.从NCBI下载nr.gz数据库)
 
 
 ### 1.从NCBI下载nr.gz数据库
