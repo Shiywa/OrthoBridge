@@ -8,12 +8,20 @@
 
 主要步骤包括
 
-- [Download nr.gz database from NCBI](#step1)
-- [Extract specific species protein sequences from nr.gz](#step2)
-- [Remove non-human information from redundant headers](#step3)
-- [Construct a reference database in one step](#step4)
-- [Batch download protein sequences from NCBI based on gene lists](#step5)
-- [Obtain results by blastp comparison](#step6)
+- [1. Download nr.gz database from NCBI](#step1)
+- [2. Extract specific species protein sequences from nr.gz](#step2)
+- [3. Remove non-human information from redundant headers](#step3)
+- [4. Construct a reference database in one step](#step4)
+- [5. Batch download protein sequences from NCBI based on gene lists](#step5)
+- [6. Obtain results by blastp comparison](#step6)
+
+step1~3的主要目的是为了从NCBI上下载nr database，但是亲测下来，nr不是很好用，虽然nr包含了同一个基因的不同蛋白质的多种变体，但是我们在做同源转换的时候不需要
+这么详尽的信息，而且从**Accession ID**转为**Symbol**也是很麻烦的，所以我们最终采用了**Ensembl**数据库提供的人类蛋白质的fasta文件，具体位置[在](https://ftp.ensembl.org/pub/release-113/fasta/homo_sapiens/pep/)。
+
+这个fasta文件的header里面提供了蛋白质对应的**Symbol**信息，可以用`awk`命令将其中的信息提取出来，方便后续的转换。因此可以跳过step1~3,直接从step4开始。
+
+step5针对的是只有**Entrze ID**的非模式生物，不能很方便的从**Uniprot**上下载蛋白质序列，需要从NCBI上查询的。
+
 
 ------------
 
