@@ -9,7 +9,11 @@
 主要步骤包括
 
 - [从NCBI下载nr.gz数据库](#1.从NCBI下载nr.gz数据库)
-
+- [从nr.gz中提取特定物种蛋白质序列](#2.从nr.gz中提取特定物种蛋白质序列)
+- [删除冗余header中的非人信息](#3.删除冗余header中的非人信息)
+- [一步构建参考数据库](#4.一步构建参考数据库)
+- [基于基因列表批量从NCBI上下载对应蛋白质序列](#5.基于基因列表批量从NCBI上下载对应蛋白质序列)
+- [blastp比对获取结果](#6.blastp比对获取结果)
 
 ### 1.从NCBI下载nr.gz数据库
 
@@ -58,7 +62,7 @@ seqkit grep -nirp "Homo sapiens" nr.fa > human_proteins_2.fasta
 
 **nr（非冗余蛋白数据库）里面会出现header里面包含多个id，但是均代表一条序列的情况，这是因为不同的数据库条目（如 RefSeq、GenBank、PDB）可能会存储相同的蛋白质序列，但具有不同的来源或注释。**
 
-### 3. 删除冗余header中的非人信息
+### 3.删除冗余header中的非人信息
 
 由于我们的目的是构建人的reference，有的蛋白质序列包含了多个物种的信息，我们希望去掉这些信息，仅仅保留一条人的注释信息，因为后续比对也仅仅可以生成一个**acc id**的比对结果。
 
@@ -265,7 +269,7 @@ fi
 115308169 XP_040360673.2,
 ```
 
-### 6. blastp比对获取结果
+### 6.blastp比对获取结果
 
 ```
 blastp -query Ixodes_proteins.fasta -db /home/Toshiba4/blast_db/human_protein/human_proteins -out panjun_Ixodes_to_human_transfer.txt -evalue 1e-5 -outfmt 6 -num_threads 64
