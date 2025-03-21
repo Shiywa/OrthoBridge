@@ -15,7 +15,7 @@
 - [Batch download protein sequences from NCBI based on gene lists](#step5)
 - [Obtain results by blastp comparison](#step6)
 
-————————————————
+------------
 
 ##### step1
 ### Download nr.gz database from NCBI
