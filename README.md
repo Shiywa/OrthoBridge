@@ -8,13 +8,14 @@
 
 主要步骤包括
 
-- [Download nr.gz database from NCBI](#1.download-nr-gz-database-from-ncbi)
+- [Download nr.gz database from NCBI](#1. Download nr.gz database from NCBI)
 - [Extract specific species protein sequences from nr.gz](#extract-specific-species-protein-sequences-from-nr-gz)
 - [Remove non-human information from redundant headers](#remove-non-human-information-from-redundant-headers)
 - [Construct a reference database in one step](#construct-a-reference-database-in-one-step)
 - [Batch download protein sequences from NCBI based on gene lists](#batch-download-protein-sequences-from-ncbi-based-on-gene-lists)
 - [Obtain results by blastp comparison](#obtain-results-by-blastp-comparison)
 
+##### step1
 ### 1. Download nr.gz database from NCBI
 
 首先使用`ascp`高速下载nr.gz数据库，优点是：速度较快；允许断点续传。
